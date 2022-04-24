@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>MyStore-Register</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin - v2.2.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+<body>
+
+	<!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a th:href="@{/login}" class="logo d-flex align-items-center">
+        <img src="/img/logo.png" alt="">
+        <span class="d-none d-lg-block">MyStore</span>
+      </a>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" th:href="@{/login}" >
+            <i class="bi bi-person-circle"></i>
+            <span>Login</span>
+          </a>
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" th:href="@{/registration}" current>
+            <i class="bi bi-card-list"></i>
+            <span>Register</span>
+          </a>
+        </li><!-- End Messages Nav -->
+
+        
+		<li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            
+            <span></span>
+          </a>
+        </li><!-- End Messages Nav -->
+          
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+  
+  <main>
+	  <div class="container">
+	   	<section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+	     <div class="container">
+	          	<div class="row justify-content-center">
+		            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+			  			<div class="card mb-3">
+                			<div class="card-body">
+                				<div class="pt-4 pb-2">
+				                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+				                    <p class="text-center small">Enter your personal details to create account</p>
+				                 </div>
+				                 
+				                 <div th:if="${param.success}">
+									<div class="alert alert-info">You've successfully registered
+										to our awesome app!</div>
+								</div>
+				                 
+				                 <form th:action="@{/registration}" method="post" th:object="${user}" class="row g-3 needs-validation" novalidate>
+				                 	<div class="col-12">
+				                      <label for="firstName" class="form-label">First Name</label>
+				                      <input type="text"  class="form-control" id="firstName" th:field="*{firstName}" required autofocus="autofocus">
+				                      <div class="invalid-feedback">Please, enter your name!</div>
+				                    </div>
+				                    
+				                    <div class="col-12">
+				                      <label for="lastName" class="form-label">Last Name</label>
+				                      <input type="text"  class="form-control" th:field="*{lastName}" autofocus="autofocus" required>
+				                      <div class="invalid-feedback">Please enter a valid Email address!</div>
+				                    </div>
+				                    
+				                    <div class="col-12">
+				                      <label for="email" class="form-label">Email</label>
+				                      <div class="input-group has-validation">
+				                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+				                        <input type="text" name="username" class="form-control" id="email" th:field="*{email}" autofocus="autofocus" required>
+				                        <div class="invalid-feedback">Please choose an Email.</div>
+				                      </div>
+				                      <br>
+				                      <div class="col-12">
+					                      <label for="password" class="form-label">Password</label>
+					                      <input type="password" name="password" class="form-control" th:field="*{password}" id="password" autofocus="autofocus" required>
+					                      <div class="invalid-feedback">Please enter your password!</div>
+					                  </div>
+					                  <br>
+					                  <div class="col-12">
+					                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
+					                  </div>
+					                  
+					                  <div class="col-12">
+					                      <p class="small mb-0">Already have an account? <a th:href="@{/login}">Log in</a></p>
+					                  </div>
+				                    </div>
+				                 </form>
+                			</div>
+                		</div>
+			  		</div>
+		  		</div>
+	  	 </div>
+	 </section>
+	</div>
+  </main>
+	
+	
+</body>
+</html>

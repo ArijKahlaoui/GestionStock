@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>MyStore-List Employee</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin - v2.2.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+  <div th:replace="fragments/header :: header" />
+  
+  <main id="main" class="main">
+	<section class="section dashboard">
+	     <div class="row">
+		      <div class="col-lg-8">
+			      <div class="col-12">
+			          <div class="card top-selling overflow-auto">
+			          	<div class="filter">
+		                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+		                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+		                    <li class="dropdown-header text-start">
+		                      <h6>Filter</h6>
+		                    </li>
+		
+		                    <li><a class="dropdown-item" href="#">Today</a></li>
+		                    <li><a class="dropdown-item" href="#">This Month</a></li>
+		                    <li><a class="dropdown-item" href="#">This Year</a></li>
+		                  </ul>
+		                </div>
+		                <div class="card-body pb-0">
+		                  <h5 class="card-title">Our Employees <span>| Today</span></h5>
+		                  <p class="my-5">
+							<a th:href = "@{/showNewEmployeeForm}" class="btn btn-primary">
+							<i class="bx bxs-user-plus"></i>Add Employee</a>	
+						  </p>
+		                  <div  class="container my-5"> 
+				                <table class="table table-borderless">
+				                    <thead>
+				                      <tr>
+				                      	
+				                        <th th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}" scope="col">First Name</th>
+				                        <th th:href="@{'/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${reverseSortDir}}" scope="col">Last Name</th>
+				                        <th th:href="@{'/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}" scope="col">Email</th>
+				                        <th scop="col">Detail</th>
+				                        <th scop="col">Edit</th>
+				                        <th scop="col">Delete</th>
+				                      </tr>
+				                    </thead>
+				                    <tbody>
+				                      <tr th:each="employee : ${listEmployees}">
+				                        <td th:text="${employee.firstName}"><a href="#" class="text-primary fw-bold"></a></td>
+				                        <td th:text="${employee.lastName}"></td>
+				                        <td th:text="${employee.email}" class="fw-bold"></td>
+				                        <td class="text-center"><a  class="btn btn-info">
+										<i class="ri-list-unordered"></i></a></td>
+				                      	<td>
+				                      		<a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}" class="btn btn-primary">
+												<i class="bx bxs-user-check"></i>
+											</a>
+										</td>
+				                      	<td>
+				                      		<a th:href="@{/deleteEmployee/{id}(id=${employee.id})}" class="btn btn-danger">
+												<i class="bx bxs-user-x"></i>
+											</a>
+										</td>
+				                      </tr>
+				                      
+				                    </tbody>
+				                </table>
+				                <div th:if = "${totalPages > 1}">
+									<div class = "row col-sm-10">
+										<div class = "col-sm-2">
+											Total Rows: [[${totalItems}]] 
+										</div>
+										<div class = "col-sm-1">
+											<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+												<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+												<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+											</span>
+										</div>
+										<div class = "col-sm-1">
+											<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+											<span th:unless="${currentPage < totalPages}">Next</span>
+										</div>
+										
+										 <div class="col-sm-1">
+						    				<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+											<span th:unless="${currentPage < totalPages}">Last</span>
+						   				 </div>
+									</div>
+								</div>
+						  </div>
+		                </div>
+			          </div>
+			      </div>
+			  </div>
+		 </div>		       
+	</section>
+  </main>
+</body>
