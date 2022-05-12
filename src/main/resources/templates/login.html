@@ -40,7 +40,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a th:href="@{/}" class="logo d-flex align-items-center">
+      <a th:href="@{/home}" class="logo d-flex align-items-center">
         <img src="/img/logo.png" alt="">
         <span class="d-none d-lg-block">MyStore</span>
       </a>
@@ -57,7 +57,7 @@
 
         <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" th:href="@{/registration}">
+          <a class="nav-link nav-icon" th:href="@{/registration}" >
             <i class="bi bi-card-list"></i>
             <span>Register</span>
           </a>
@@ -90,7 +90,8 @@
 						                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
 						                    <p class="text-center small">Enter your username & password to login</p>
 						                 </div>
-						                 <form th:action="@{/login}" method="post" class="row g-3 needs-validation" novalidate>
+						                 <form th:action="@{/login}" method="POST" class="row g-3 needs-validation" novalidate>
+						                 	
 						                 	<div th:if="${param.error}">
 												<div class="alert alert-danger">Invalid username or password.</div>	
 											</div>
@@ -99,26 +100,43 @@
 												<div class="alert alert-info">You have been logged out.</div>
 											</div>
 											
+											
+											
 						                 	<div class="col-12">
-						                      <label for="username" class="form-label">Username</label>
+						                      <label for="username" class="form-label">Email</label>
 						                      <div class="input-group has-validation">
 						                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-						                        <input type="text" name="username" class="form-control" id="username" required>
+						                        <input type="text" id="email" name="email" th:placeholder="Email" class="form-control"  required>
+						                         
 						                        <div class="invalid-feedback">Please enter your username.</div>
 						                      </div>
 						                    </div>
-						                    <div class="col-12">
-						                      <label for="password" class="form-label">Password</label>
-						                      <input type="password" name="password" class="form-control" id="password" required>
-						                      <div class="invalid-feedback">Please enter your password!</div>
-						                    </div>
+						                    
+						                    
 						                    
 						                    <div class="col-12">
-						                      <button class="btn btn-primary w-100" type="submit" value="Login">Login</button>
+						                      <label for="password" class="form-label">Password</label>
+						                      <div class="input-group has-validation">
+						                      	  <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-key"></i></span>
+							                      <input type="password" id="password" name="password" th:placeholder="Password" class="form-control" required>
+							                      <div class="invalid-feedback">Please enter your password!</div>
+						                    	</div>
 						                    </div>
+						                    
+						                    
+						                    
+						                    
+						                    <div class="col-12">
+						                      <button class="btn btn-primary w-100" name="Submit" value="Login" type="Submit" th:text="Login"></button>
+						                    </div><br/>
+						                    
+						                    
+						                    
 						                    <div class="col-12">
 						                      <p class="small mb-0">Don't have account? <a th:href="@{/registration}">Create an account</a></p>
 						                    </div>
+						                    
+						                    
 						                 </form>
 									</div>
 								</div>

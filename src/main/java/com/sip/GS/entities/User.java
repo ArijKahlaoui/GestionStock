@@ -1,6 +1,9 @@
 package com.sip.GS.entities;
 
-import java.util.Collection;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,53 +15,95 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 
 @Entity
-@Table(name =  "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name =  "user")
 public class User {
 	@Id
-	@GeneratedValue(strategy =  GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy =  GenerationType.AUTO)
+	@Column(name = "user_id")
+	private int id;
 	
+	@Column(name = "email")
+	 @Email(message = "*Please provide a valid Email")
+	 @NotEmpty(message = "*Please provide an email")
+	private String email;
+	
+	@Column(name = "password")
+	@Length(min = 5, message = "*Your password must have at least 5 characters")
+	@NotEmpty(message = "*Please provide your password")
+	private String password;
+	
+	@NotEmpty(message = "*Please provide your first name")
 	@Column(name = "first_name")
 	private String firstName;
 	
 	@Column(name = "last_name")
+	@NotEmpty(message = "*Please provide your last name")
 	private String lastName;
 	
-	private String email;
 	
-	private String password;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(
-			name = "users_roles",
-			joinColumns = @JoinColumn(
-		            name = "user_id", referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(
-				            name = "role_id", referencedColumnName = "id"))
+	@Column(name = "active")
+	 private int active;
+
 	
-	private Collection<Role> roles;
-	
+	 @ManyToMany(cascade = CascadeType.ALL)
+	 @JoinTable(name ="user_role", joinColumns=@JoinColumn(name= "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	 private Set<Role> roles;
+	 //Set<>() est un type de collection qui n'accepte pas la repetition des attribus
+	 
 	public User() {
-		
+		super();
 	}
 	
-	public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+
+
+	public User(int id,
+			@Email(message = "*Please provide a valid Email") @NotEmpty(message = "*Please provide an email") String email,
+			@Length(min = 5, message = "*Your password must have at least 5 characters") @NotEmpty(message = "*Please provide your password") String password,
+			@NotEmpty(message = "*Please provide your first name") String firstName,
+			@NotEmpty(message = "*Please provide your last name") String lastName, int active,
+			Set<Role> roles) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.active = active;
+		this.roles = roles;
+	}
+
+
+
+	public User(@NotEmpty(message = "*Please provide your first name") String firstName,
+			@NotEmpty(message = "*Please provide your last name") String lastName,
+			@Email(message = "*Please provide a valid Email") @NotEmpty(message = "*Please provide an email") String email,
+			@Length(min = 5, message = "*Your password must have at least 5 characters") @NotEmpty(message = "*Please provide your password") String password,
+			int active, Set<Role> roles) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+		this.active = active;
 		this.roles = roles;
+		
 	}
-	public Long getId() {
+	
+	
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getFirstName() {
@@ -85,11 +130,26 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Collection<Role> getRoles() {
+	
+	
+
+
+
+	public int getActive() {
+		return active;
+		}
+		public void setActive(int active) {
+		this.active = active;
+		}
+
+	
+	public Set<Role> getRoles() {
 		return roles;
 	}
-	public void setRoles(Collection<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 
+
+	
 }

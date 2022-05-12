@@ -17,7 +17,7 @@ import org.hibernate.annotations.OnDeleteAction;
 public class Article {
 	@Id
 	 @GeneratedValue(strategy = GenerationType.AUTO)
-	 private long id;
+	 private int id;
 	 @NotBlank(message = "Label is mandatory")
 	 @Column(name = "label")
 	 private String label;
@@ -25,6 +25,9 @@ public class Article {
 	 
 	 @Column(name = "price")
 	 private float price;
+	 
+	 @Column(name = "quantity")
+	 private int quantity;
 	 
 	 @Column(name = "picture")
 	 private String picture;
@@ -35,25 +38,28 @@ public class Article {
 	 @OnDelete(action = OnDeleteAction.CASCADE)
 	private Provider provider;
 
-		public Article(long id, @NotBlank(message = "Label is mandatory") String label, float price, String picture,
-				Provider provider) {
+		public Article(int id, @NotBlank(message = "Label is mandatory") String label, float price, String picture,
+				int quantity,Provider provider) {
 			super();
 			this.id = id;
 			this.label = label;
 			this.price = price;
 			this.picture = picture;
 			this.provider = provider;
+			this.quantity = quantity;
 		}
 
 		public Article() {
 			super();
 		}
 
-		public long getId() {
+		
+
+		public int getId() {
 			return id;
 		}
 
-		public void setId(long id) {
+		public void setId(int id) {
 			this.id = id;
 		}
 
@@ -88,8 +94,16 @@ public class Article {
 		public void setProvider(Provider provider) {
 			this.provider = provider;
 		}
+
+		public int getQuantity() {
+			return quantity;
+		}
+
+		public void setQuantity(int quantity) {
+			this.quantity = quantity;
+		}
 	
-	
+		
 	
 
 

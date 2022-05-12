@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>MyStore-Add Product</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+		integrity="sha384-
+		5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+		crossorigin="anonymous">
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin - v2.2.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+	<div th:replace="fragments/header :: header" />
+	
+	<main id="main" class="main">
+		<section class="section">
+	      <div class="row">
+	        <div class="col-lg-9">
+	          <div class="card">
+	            <div class="card-body">
+	              <h5 class="card-title"> Add Article </h5>
+	              
+	              <form action="#" th:action="@{/article/add}" th:object="${article}" method="post" enctype="multipart/form-data">
+	                
+	                <div class="form-group col-md-8">
+	                  <label for="label" class="col-sm-2 col-form-label" id="label">Label</label>
+	                    <input type="text" th:field="*{label}" class="form-control">
+	                    <span th:if="${#fields.hasErrors('label')}" th:errors="*{label}" class="text-danger"></span>
+	                </div>
+	                
+	                <div class="form-group col-md-8">
+	                  <label for="price"  class="col-sm-2 col-form-label" id="email">Price</label>
+	                    <input type="text" th:field="*{price}" class="form-control">
+	                    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></span>
+	                </div>
+	                <div class="form-group col-md-8">
+	                  <label for="quantity"  class="col-sm-2 col-form-label" id="quantity">Quantity</label>
+	                    <input type="number" th:field="*{quantity}" class="form-control">
+	                    <span th:if="${#fields.hasErrors('quantity')}" th:errors="*{price}" class="text-danger"></span>
+	                </div>
+	                <div class="form-group col-md-8">
+						<label for="picture" class="col-form-label">Picture</label> 
+						<input class="form-control" type="file" name="files" accept="image/png, image/jpeg" multiple>
+					</div>
+			
+					<div class="form-group col-md-8">
+						<label for="provider" class="col-form-label">Providers</label> 
+						<select name="providerId" class="form-control">			
+							<option th:each="pr: ${providers}" th:value="${pr.id}" th:text="${pr.name}" />		
+						</select>
+					</div>
+	                <br/>
+	                <div class="row mb-3">
+		                <div class="form-group col-md-8">
+		                  <div class="text-center">
+		                    <button type="submit" class="btn btn-primary" value="Add Provider">Submit</button>
+		                  	<button type="reset" class="btn btn-secondary">Reset</button>
+		                  </div>
+		                </div>
+		               </div>
+	              </form>
+	              	 <a th:href = "@{/article/list}"><i class="bx bx-arrow-back"></i> Back to Article List</a>
+	            </div>
+	          </div>
+        </div>
+	       </div>
+      	</section>
+	</main>
+	
+	
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <!-- Vendor JS Files -->
+  <script src="/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/chart.js/chart.min.js"></script>
+  <script src="/vendor/echarts/echarts.min.js"></script>
+  <script src="/vendor/quill/quill.min.js"></script>
+  <script src="/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/js/main.js"></script>
+</body>
+</html>
+
